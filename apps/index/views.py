@@ -14,10 +14,11 @@ def index(request):
     busca = request.GET.get('busca' or None)        
     posts =  Post.objects.all()
     
-    if busca.isnumeric() and busca is not None:
-        posts =  Post.objects.filter(Q(id=busca) | Q(criacao=busca) | Q(atualizacao=busca) | Q(titulo__icontains=busca) | Q(anotacao__icontains=busca) | Q(usuario__icontains=busca))
-    elif busca is not None:
-        posts =  Post.objects.filter(Q(titulo__icontains=busca) | Q(anotacao__icontains=busca) | Q(usuario__username__icontains=busca))
+    if busca is not None:
+        if busca.isnumeric():
+            posts =  Post.objects.filter(Q(id=busca) | Q(criacao=busca) | Q(atualizacao=busca) | Q(titulo__icontains=busca) | Q(anotacao__icontains=busca) | Q(usuario__icontains=busca))
+        else:
+            posts =  Post.objects.filter(Q(titulo__icontains=busca) | Q(anotacao__icontains=busca) | Q(usuario__username__icontains=busca))
 
     postForm = PostForm(request.POST or None)
     if postForm.is_valid():
