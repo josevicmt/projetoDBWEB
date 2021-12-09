@@ -9,7 +9,6 @@ class Post(models.Model):
     usuario  = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuario')
     titulo   = models.CharField('Titulo', blank=False, max_length=150, unique=True)
     anotacao = models.TextField('Anotacao')
-    feito    = models.BooleanField(default=False)
     criacao  = models.DateTimeField(auto_now=True)
     edicao   = models.DateTimeField(auto_now_add=True)
     slug     = models.SlugField(default='', editable=False)   
@@ -17,16 +16,27 @@ class Post(models.Model):
     def get_vizualizacao_url(self):
         kwargs = {
             'pk': self.id,
-            'slug': self.slug
+            'slug': self.slug,
         }
         return reverse('verPost', kwargs=kwargs)
+    
+    def get_excluir_url(self):
+        kwargs = {
+            'pk': self.id,
+            'slug': self.slug,
+        }
+        return reverse('excluirPost', kwargs=kwargs)
     
     def get_editar_url(self):
         kwargs = {
             'pk': self.id,
-            'slug': self.slug
+            'slug': self.slug,
         }
         return reverse('editarPost', kwargs=kwargs)
+    
+    def verMiniatura(self):
+        self.verMiniatura = f'{self.anotacao[:100]}...'
+        return self.verMiniatura
 
     def save(self, *args, **kwargs):
         value = self.titulo

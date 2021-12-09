@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/index.css'%}">
+    <title>Document</title>
+</head>
+{% include 'navbar.html' %}
+
+<body>
+    <div class="container d-flex flex-column">
+        <ul class="list-group p-2">
+            {% if messages %}
+            <li class="list-group-item">
+                {% for m in messages %}
+                    {{m}}
+                {% endfor %}
+            </li>
+            {% endif %}
+            <li class="list-group-item d-flex justify-content-around">
+                <form action="" method='POST' class='form-inline'>    
+                    <div class="form-group">
+                        <ul class="list-group  align-center ">
+                            {% csrf_token %}
+                            <li class="list-group-item">
+                                <label for="titulo">Titulo do Post
+                                    <input type="text" name='titulo' id='titulo' value={{post.instance.titulo}} class='form-control form-control-xl'> 
+                                </label>
+                                <br>
+                            </li>
+                            <li class="list-group-item">
+                                <label for="anotacao">Corpo do Post
+                                    <textarea type="text" name='anotacao' id='anotacao' class='form-control form-control-xl col-8' rows=40>
+                                        {{post.instance.anotacao}}
+                                    </textarea>
+                                </label>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-center">
+                                <a href="{% url 'index' %}">
+                                    <p>
+                                        Descartar Alterações
+                                    </p>
+                                </a>
+                                <button type='submit'>
+                                    Salvar alterações
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

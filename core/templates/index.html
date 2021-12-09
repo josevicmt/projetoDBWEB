@@ -4,28 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <title>Publicações</title>
 </head>
-<body>
-    {% if user.is_authenticated %}
-    <form method=POST>
-    {% csrf_token %}
-    {{postForm}}
-    <button type="submit" class="btn btn-primary">Submit</button>   
-    </form>
-    {% endif %}
-    {% for p in posts %}
-    <a href="{{p.get_vizualizacao_url}}">
-        <div> 
-        {{p.titulo}}
-        </div>
-    
-        <div> 
-        {{p.anotacao}}
-        </div>
-    </a>
-    {% empty %}
-    <br>Ainda não foram cadastradas publicações
-    {% endfor %}
+{% include 'navbar.html' %}
+<body class='bg-dark'>
+    <div class='container bg-dark'>
+        <ul class="list-group">
+            {% if messages %}
+            <li class="list-group-item">
+                {% for m in messages %}
+                    {{m}}
+                {% endfor %}
+            </li>
+            {% endif %}
+            <li class="list-group-item d-flex justify-content-center">
+                {% if user.is_authenticated %}
+                <form method=POST class='form-inline'>
+                    <div class="form-group ">
+                        {% csrf_token %}
+                        <ul class="list-group align-center">
+                            {% for f in postForm %}
+                            <li class="list-group-item">
+                                {{f.label}}
+                                {{f}}
+                            </li>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary">Submit</button>   
+                        </ul>
+                    </div>
+                    </form>
+                {% endif %}
+            </li>
+            <li class="list-group-item d-flex justify-content-center">
+                <ul class="list-group">
+                {% for p in posts %}
+                <li class="list-group-item">
+                    <a href="{{p.get_vizualizacao_url}}">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                            <h5 class="card-title">{{p.titulo}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@{{ p.usuario }}</h6>
+                            <p class="card-text">{{p.verMiniatura}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {% empty %}
+                    <br>Ainda não foram cadastradas publicações
+                {% endfor %}
+                </ul>
+            </li>
+            <li class="list-group-item d-flex justify-content-center">
+
+                {% include 'paginator.html' %}
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

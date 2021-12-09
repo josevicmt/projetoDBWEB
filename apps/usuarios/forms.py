@@ -34,19 +34,10 @@ class UsuariosCria(forms.ModelForm):
         }
 
     def clean(self):
-        username= self.cleaned_data.get('username')
-        email= self.cleaned_data.get('email')
-        nome= self.cleaned_data.get('nome_completo')
         password1= self.cleaned_data.get('password1')
         password2= self.cleaned_data.get('password2')
-        lista_erro= {}  
-        numero_string(nome,'nome_completo', lista_erro)
-        checa_senhas(password1, password2, 'password1', lista_erro)
-        nome_db(username,'nome_completo', lista_erro)
-        email_db(email,'email',lista_erro)
-        
-        for problema in lista_erro:
-            raise forms.ValidationError(lista_erro[problema])
+        if str(password1) == str(password2):
+            return self.cleaned_data
 
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(

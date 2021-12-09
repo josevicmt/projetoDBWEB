@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/index.css'%}">
+    <title>Document</title>
+</head>
+{% include 'navbar.html' %}
+<body>
+    <div class='container '>
+        <ul class="list-group">
+            {% if messages %}
+            <li class="list-group-item">
+                {% for m in messages %}
+                    {{m}}
+                {% endfor %}
+            </li>
+            {% endif %}
+            <li class="list-group-item d-flex justify-content-center">
+                <ul class="list-group">
+                    <p>Tem Certeza que deseja apagar {{post.titulo}}?</p>
+                    <form action="" method='POST' class='form-inline d-flex justify-content-between'>
+                        {% csrf_token %}
+                        <div class="form-group d-flex justify-content-between">
+                            <li class="list-group-item w-100 p-5">
+                                <input type="hidden" value="apagar" name='apagar' class='form-control w-100 p-5'>
+                                <a  href="{% url 'index' %}">Não</a>
+                                <button type='submit' class='btn btn-primary'>Sim</button>
+                            </li>
+                        </div>
+                    </form>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

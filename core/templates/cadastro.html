@@ -12,6 +12,11 @@
     <title>Document</title>
 </head>
 <body>
+    {% if messages %}
+        {% for m in messages %}
+            {{m}}
+        {% endfor %}
+    {% endif %}
     <form action="" method='POST'>
     {% csrf_token %}
     {{form}} 

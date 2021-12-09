@@ -6,26 +6,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/index.css'%}">
+
     <title>Document</title>
 </head>
+{% include 'navbar.html' %}
 <body>
-    {% if request.user == post.usuario %}
-        exculir
-    {% endif %}
-    
-    <div>
-        <p>{{post.titulo}}</p>
-    </div>
-    <div>
-        <p>publicação: {{post.criacao|date:"d-m-Y"}}</p>
-    </div>
-    {% if post.criacao|date:"d-m-Y" != post.edicao|date:"d-m-Y" %}
-    <div>
-        <p>editado em: {{post.edicao}}</p>
-    </div>
-    {% endif %}
-    <div>
-        <p>{{post.anotacao}}</p>
+    <div class="container">
+        <ul class="list-group">
+            {% if messages %}
+            <li class="list-group-item">
+                {% for m in messages %}
+                    <p>{{m}}</p>
+                {% endfor %}
+            </li>
+            {% endif %}
+            {% if request.user == post.usuario %}
+            <li class="list-group-item d-flex justify-content-between">
+                <a href="{{post.get_editar_url}}">
+                    Editar
+                </a>
+                <a href="{{post.get_excluir_url}}">
+                    Exluir
+                </a>
+            </li>
+            {% endif %}
+            <li class="list-group-item">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class='d-flex d-flex justify-content-around'>
+                            <h6 class="display-4">{{post.titulo}}</h2>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class='d-flex justify-content-between'>
+                            <p>Publicado em: {{post.criacao|date:"d-m-Y"}}</p>
+                            {% if post.criacao|date:"d-m-Y" != post.edicao|date:"d-m-Y" %}
+                                <p>Editado em: {{post.edicao}}</p>
+                            {% endif %}
+                            
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class='container'>
+                            <p>{{post.anotacao}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </body>
 </html>

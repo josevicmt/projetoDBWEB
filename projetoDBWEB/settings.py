@@ -140,5 +140,5 @@ MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'usuarios.CustomUsuario'
 
-LOGIN_REDIRECT_URL = 'usuarios:login_view'
-LOGOUT_REDIRECT_URL = 'usuarios:login_view'
+LOGIN_REDIRECT_URL = 'login_view'
+LOGOUT_REDIRECT_URL = 'login_view'

@@ -1,0 +1,8 @@
+*{
+    color:blue;
+    background-color: blueviolet;
+}
+
+p{
+    overflow-wrap: break-word;
+}
