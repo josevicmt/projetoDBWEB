@@ -5,8 +5,24 @@ from django.core.validators import EmailValidator
 from .validators import *
 
 class UsuariosCria(forms.ModelForm):
-    password1= forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2= forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
+    password1= forms.CharField(label='Password', 
+        widget=forms.PasswordInput(attrs={
+            "class": "form-control",
+            "id": "user-password",
+            'placeholder':'Senha'
+            }
+        )
+    )
+    password2= forms.CharField(label='Confirm Password', 
+            widget=forms.PasswordInput(attrs={
+                "class": "form-control",
+                "id": "user-password",
+                'placeholder':'Senha'
+            }
+        )
+    )
+    
+
 
     class Meta:
         model= CustomUsuario
@@ -28,7 +44,7 @@ class UsuariosCria(forms.ModelForm):
         widgets={
             'email':forms.EmailInput(attrs={'type':'text', 'class':'form-control form-control-xl', 'placeholder':'Email'}),
             'nome_completo':forms.TextInput(attrs={'placeholder':'Nome completo', 'class':'form-control form-control-xl'}),
-            'username': forms.TextInput(attrs={'placeholder':'Username', 'class':'form-control form-control-xl'}),
+            'username': forms.TextInput(attrs={'placeholder':'Nome de Usuario', 'class':'form-control form-control-xl'}),
             'password1':forms.Textarea(attrs={'placeholder':'Confirme a Senha', 'class':'form-control form-control-xl'}),
             'password2':forms.Textarea(attrs={'placeholder':'Confirme a Senha','type':'password', 'class':'form-control form-control-xl'}),
         }
@@ -42,15 +58,21 @@ class UsuariosCria(forms.ModelForm):
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(
         attrs={
-        "class": "form-control"
-    }))
+        "class": "form-control",
+        'type':'text',
+        'placeholder':'Nome de Usuário',
+            }
+        ),
+        label=''
+    )
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",
-                "id": "user-password"
+                "id": "user-password",
+                'placeholder':'Senha'
             }
-        )
+        ), label=''
     )
     def clean(self):
         username= self.cleaned_data.get('username')

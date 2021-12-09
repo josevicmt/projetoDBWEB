@@ -18,8 +18,9 @@ def index(request):
         post     = Post.objects.create(titulo=titulo, anotacao=anotacao, usuario=user)
         post.save()    
     post = Post.objects.last()
-    paginator = Paginator(posts, 1)
+    paginator = Paginator(posts, 6)
     page = request.GET.get('page')
+    print(page)
     try:
         pagi = paginator.page(page)
     except PageNotAnInteger:

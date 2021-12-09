@@ -11,7 +11,7 @@
 
     <title>Document</title>
 </head>
-<body>
+<body  class='align-middle p-5'>
     {% if messages %}
         {% for m in messages %}
             {{m}}
@@ -19,8 +19,15 @@
     {% endif %}
     <form action="" method='POST'>
     {% csrf_token %}
-    {{form}} 
-    <button type="submit" class="btn btn-primary">Submit</button>   
+    <ul class="list-group  d-flex justify-content-center border-0 p-5">
+        {% for f in form %}
+            <li class="list-group-item d-flex justify-content-xl-center p-4 border-0 ">
+                {{f.errors}}
+                {{f}}
+            </li>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit</button>   
+    </ul>
 </form>
     
 </body>

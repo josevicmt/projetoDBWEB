@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <title>Publicações</title>
 </head>
+
 {% include 'navbar.html' %}
+
 <body class='bg-dark'>
     <div class='container bg-dark'>
         <ul class="list-group">
@@ -37,26 +40,27 @@
                 {% endif %}
             </li>
             <li class="list-group-item d-flex justify-content-center">
-                <ul class="list-group">
-                {% for p in posts %}
-                <li class="list-group-item">
-                    <a href="{{p.get_vizualizacao_url}}">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                            <h5 class="card-title">{{p.titulo}}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@{{ p.usuario }}</h6>
-                            <p class="card-text">{{p.verMiniatura}}</p>
-                            </div>
+                <div class="container p-1">
+                    <div class="row p-1">
+                    {% for p in postspaginator %}
+                        <div class="col p-5">
+                            <a href="{{p.get_vizualizacao_url}}">
+                                <div class="card row" style="width: 18rem;">
+                                    <div class="card-body col" style="min-height:300px">
+                                        <h5 class="card-title">{{p.titulo}}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">@{{ p.usuario }}</h6>
+                                        <p class="card-text">{{p.verMiniatura}}</p>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </li>
-                {% empty %}
-                    <br>Ainda não foram cadastradas publicações
-                {% endfor %}
-                </ul>
+                    {% empty %}
+                        <br>Ainda não foram cadastradas publicações
+                    {% endfor %}
+                    </div>
+                </div>
             </li>
             <li class="list-group-item d-flex justify-content-center">
-
                 {% include 'paginator.html' %}
             </li>
         </ul>
