@@ -11,7 +11,7 @@ User = get_user_model()
 
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return redirect('index')
 
 def loginView(request):
     form = LoginForm(request.POST or None)
