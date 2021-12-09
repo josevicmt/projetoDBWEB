@@ -13,27 +13,33 @@
 </head>
 
 <body class='align-middle p-5' >
-    <form action="" method="POST" class='' >
+    <form action="" method="POST" class='d-flex justify-content-center' >
         {% csrf_token %}
         {% for e in form.errors %}
         {{e}}
         {% endfor %}
-        <ul class=" list-group d-flex justify-content-center border-0 p-5" style='heigth:200px'>
-            {% for f in form %}
-                <li class="list-group-item d-flex justify-content-xl-center p-4 border-0 " >
-                    <div class="form-group form-inline ">
-                        {{f.errors}}
-                        
-                        <div class="col-sm-10">
-                            {{f}}
+        <div class="container">
+            <ul class=" list-group d-flex justify-content-center p-5" style='heigth:200px'>
+                {% for f in form %}
+                    <li class="list-group-item d-flex justify-content-around p-4  border-0" >
+                        <div class="form-group form-inline ">
+                            {{f.errors}}
+                            <div class="col-sm-10">
+                                {{f}}
+                            </div>
+                        </div>        
+                    </li>    
+                {% endfor %}        
+                <li class="list-group-item d-flex justify-content-around p-4  border-0" >
+                    <div class="form-group form-inline ">                
+                        <div class="form-group form-inline ">
+                            <a href="{% url 'registro_view' %}"><button class='btn btn-light'>Cadastrar</button></a>
+                            <button class="btn btn-primary" type="submit" class=''>Entrar</button>   
                         </div>
                     </div>        
                 </li>    
-            {% endfor %}
-            <li class="list-group-item d-flex justify-content-xl-center border-0 " >
-                <button class="btn btn-primary" type="submit" class=''>Entrar</button>   
-            </li>
-        </ul>
+            </ul>
+        </div>
     </form>
 </body>
 </html>
