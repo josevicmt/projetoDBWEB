@@ -12,6 +12,8 @@ class Post(models.Model):
     criacao  = models.DateTimeField(auto_now=True)
     edicao   = models.DateTimeField(auto_now_add=True)
     slug     = models.SlugField(default='', editable=False)   
+    class Meta:
+        ordering=['-criacao', '-titulo']
     
     def get_vizualizacao_url(self):
         kwargs = {
@@ -44,5 +46,5 @@ class Post(models.Model):
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return f'{self.usuario} - {self.criacao}'
+        return f'{self.usuario} - {self.titulo} - {self.criacao}'
   
